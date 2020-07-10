@@ -1,0 +1,9 @@
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\bin\Release\ADBox2.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\bin\Release\ADBox2.pdb
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\bin\Release\ADBox2.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.ADBox2.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.Resources.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.vbproj.GenerateResource.Cache
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ADBox2\obj\Release\ADBox2.pdb
