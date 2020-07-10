@@ -19,6 +19,18 @@ ADBox2
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:ADBox2.ADBox2.setFocus(System.Int32)">
+	<summary>
+ 対象文字を選択状態にする
+ </summary>
+	<param name="targetIndex">選択対象文字インデックス</param>
+	<remarks></remarks>
+</member><member name="M:ADBox2.ADBox2.getDay">
+	<summary>
+ 入力日付の曜日（日本語）を取得する
+ </summary>
+	<returns>曜日（日本語）</returns>
+	<remarks></remarks>
 </member>
 </members>
 </doc>

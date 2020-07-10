@@ -1,8 +1,10 @@
 ﻿Imports System.Windows.Forms
+Imports System.Drawing
 
 Public Class ADBox2
 
     Private Const AD_STR_MIN As String = "1900/01/01"
+    Private Const AD_STR_MIN_2 As String = "2000/01/01"
 
     Public canHoldDownButton As Boolean = True
 
@@ -17,6 +19,18 @@ Public Class ADBox2
 
     Public Event YmdTextChange(ByVal sender As Object, ByVal e As EventArgs)
 
+    'Public Event keyDownUp(ByVal sender As Object, ByVal e As EventArgs)
+
+    'Public Event keyDownDown(ByVal sender As Object, ByVal e As EventArgs)
+
+    'Public Event keyDownLeft(ByVal sender As Object, ByVal e As EventArgs)
+
+    'Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
+
+    'Public Event keyDownEnterLastBox(ByVal sender As Object, ByVal e As EventArgs)
+
+    'Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
+
     Private _mode As Integer
     Public Property Mode() As Integer
         Get
@@ -25,63 +39,355 @@ Public Class ADBox2
         Set(ByVal value As Integer)
             _mode = value
             If Mode = 1 Then
-                btnUp.Visible = False
-                btnDown.Visible = False
-                dateBox.Visible = False
-                Label3.Visible = False
-                Me.Size = New Drawing.Size(105, 35)
+                '曜日なしver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
+                btnUp.Visible = True
+                btnDown.Visible = True
 
-                Label1.Location = New System.Drawing.Point(43, 11)
-                Label1.Text = "年"
-                Label2.Location = New System.Drawing.Point(88, 11)
-                Label2.Text = "月"
-                monthBox.Location = New System.Drawing.Point(65, 8)
-                dateBox.Location = New System.Drawing.Point(109, 8)
+                Me.Size = New Drawing.Size(125, 32)
+
+                yearBox.Location = New System.Drawing.Point(0, 6)
+                monthBox.Location = New System.Drawing.Point(50, 6)
+                dateBox.Location = New System.Drawing.Point(82, 6)
+                Label1.Location = New System.Drawing.Point(40, 9)
+                Label2.Location = New System.Drawing.Point(72, 9)
+                btnUp.Location = New System.Drawing.Point(109, 0)
+                btnDown.Location = New System.Drawing.Point(109, 16)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 11)
+                monthBox.Font = New Font("MS UI Gothic", 11)
+                dateBox.Font = New Font("MS UI Gothic", 11)
+                Label1.Font = New Font("MS UI Gothic", 12)
+                Label2.Font = New Font("MS UI Gothic", 12)
+                btnUp.Font = New Font("MS UI Gothic", 7)
+                btnDown.Font = New Font("MS UI Gothic", 7)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(39, 22)
+                monthBox.Size = New Size(22, 22)
+                dateBox.Size = New Size(22, 22)
+                'ボタンのサイズ
+                btnUp.Size = New Size(15, 17)
+                btnDown.Size = New Size(15, 17)
+            ElseIf Mode = 12 Then
+                '曜日なしverの大きいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                Me.Size = New Drawing.Size(140, 45)
+
+                yearBox.Location = New System.Drawing.Point(0, 9)
+                monthBox.Location = New System.Drawing.Point(53, 9)
+                dateBox.Location = New System.Drawing.Point(86, 9)
+                Label1.Location = New System.Drawing.Point(46, 11)
+                Label2.Location = New System.Drawing.Point(79, 11)
+                btnUp.Location = New System.Drawing.Point(118, 0)
+                btnDown.Location = New System.Drawing.Point(118, 22)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
+                Label1.Font = New Font("MS UI Gothic", 14)
+                Label2.Font = New Font("MS UI Gothic", 14)
+                btnUp.Font = New Font("MS UI Gothic", 9)
+                btnDown.Font = New Font("MS UI Gothic", 9)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(48, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
+                'ボタンのサイズ
+                btnUp.Size = New Size(22, 23)
+                btnDown.Size = New Size(22, 23)
             ElseIf Mode = 2 Then
+                '曜日なし、ボタンなしver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
                 btnUp.Visible = False
                 btnDown.Visible = False
-                dateBox.Visible = True
-                Label3.Visible = False
-                Me.Size = New Drawing.Size(113, 35)
 
-                Label1.Location = New System.Drawing.Point(43, 11)
-                Label1.Text = "."
-                Label2.Location = New System.Drawing.Point(76, 11)
-                Label2.Text = "."
-                monthBox.Location = New System.Drawing.Point(53, 8)
-                dateBox.Location = New System.Drawing.Point(86, 8)
+                Me.Size = New Drawing.Size(105, 32)
+
+                yearBox.Location = New System.Drawing.Point(0, 6)
+                monthBox.Location = New System.Drawing.Point(50, 6)
+                dateBox.Location = New System.Drawing.Point(82, 6)
+                Label1.Location = New System.Drawing.Point(40, 9)
+                Label2.Location = New System.Drawing.Point(72, 9)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 11)
+                monthBox.Font = New Font("MS UI Gothic", 11)
+                dateBox.Font = New Font("MS UI Gothic", 11)
+                Label1.Font = New Font("MS UI Gothic", 12)
+                Label2.Font = New Font("MS UI Gothic", 12)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(39, 22)
+                monthBox.Size = New Size(22, 22)
+                dateBox.Size = New Size(22, 22)
+            ElseIf Mode = 22 Then
+                '曜日なし、ボタンなしverの大きいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
+                btnUp.Visible = False
+                btnDown.Visible = False
+
+                Me.Size = New Drawing.Size(115, 28)
+
+                yearBox.Location = New System.Drawing.Point(0, 0)
+                monthBox.Location = New System.Drawing.Point(53, 0)
+                dateBox.Location = New System.Drawing.Point(86, 0)
+                Label1.Location = New System.Drawing.Point(46, 9)
+                Label2.Location = New System.Drawing.Point(79, 9)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
+                Label1.Font = New Font("MS UI Gothic", 14)
+                Label2.Font = New Font("MS UI Gothic", 14)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(48, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
             ElseIf Mode = 3 Then
-                btnUp.Visible = True
-                btnDown.Visible = True
+                '日なし、曜日なしver
+                yearBox.Visible = True
+                monthBox.Visible = True
                 dateBox.Visible = False
-                Label3.Visible = False
-                Me.Size = New Drawing.Size(130, 35)
-
-                Label1.Location = New System.Drawing.Point(43, 11)
-                Label1.Text = "年"
-                Label2.Location = New System.Drawing.Point(88, 11)
-                Label2.Text = "月"
-                monthBox.Location = New System.Drawing.Point(65, 8)
-                dateBox.Location = New System.Drawing.Point(109, 8)
-                btnUp.Location = New System.Drawing.Point(112, 1)
-                btnDown.Location = New System.Drawing.Point(112, 17)
-            Else
+                Label1.Visible = True
+                Label2.Visible = False
+                dayLabel.Visible = False
                 btnUp.Visible = True
                 btnDown.Visible = True
-                dateBox.Visible = True
-                Label3.Visible = True
-                Me.Size = New Drawing.Size(176, 35)
 
-                Label1.Location = New System.Drawing.Point(43, 11)
-                Label1.Text = "年"
-                Label2.Location = New System.Drawing.Point(88, 11)
-                Label2.Text = "月"
-                monthBox.Location = New System.Drawing.Point(65, 8)
-                dateBox.Location = New System.Drawing.Point(109, 8)
+                Me.Size = New Drawing.Size(95, 32)
+
+                yearBox.Location = New System.Drawing.Point(0, 6)
+                monthBox.Location = New System.Drawing.Point(50, 6)
+                Label1.Location = New System.Drawing.Point(40, 9)
+                btnUp.Location = New System.Drawing.Point(80, 0)
+                btnDown.Location = New System.Drawing.Point(80, 16)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 11)
+                monthBox.Font = New Font("MS UI Gothic", 11)
+                Label1.Font = New Font("MS UI Gothic", 12)
+                btnUp.Font = New Font("MS UI Gothic", 7)
+                btnDown.Font = New Font("MS UI Gothic", 7)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(39, 22)
+                monthBox.Size = New Size(22, 22)
+                'ボタンのサイズ
+                btnUp.Size = New Size(15, 17)
+                btnDown.Size = New Size(15, 17)
+            ElseIf Mode = 32 Then
+                '日なし、曜日なしverの大きいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = False
+                Label1.Visible = True
+                Label2.Visible = False
+                dayLabel.Visible = False
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                Me.Size = New Drawing.Size(110, 46)
+
+                yearBox.Location = New System.Drawing.Point(0, 10)
+                monthBox.Location = New System.Drawing.Point(53, 10)
+                Label1.Location = New System.Drawing.Point(46, 15)
+                btnUp.Location = New System.Drawing.Point(87, 0)
+                btnDown.Location = New System.Drawing.Point(87, 22)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                Label1.Font = New Font("MS UI Gothic", 14)
+                btnUp.Font = New Font("MS UI Gothic", 9)
+                btnDown.Font = New Font("MS UI Gothic", 9)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(48, 30)
+                monthBox.Size = New Size(28, 30)
+                'ボタンのサイズ
+                btnUp.Size = New Size(22, 23)
+                btnDown.Size = New Size(22, 23)
+            ElseIf Mode = 4 Then
+                'デフォルトの大きいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = True
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                '全体のサイズ
+                Me.Size = New Drawing.Size(175, 45)
+
+                '位置
+                yearBox.Location = New System.Drawing.Point(0, 9)
+                monthBox.Location = New System.Drawing.Point(53, 9)
+                dateBox.Location = New System.Drawing.Point(86, 9)
+                Label1.Location = New System.Drawing.Point(46, 14)
+                Label2.Location = New System.Drawing.Point(79, 14)
+                dayLabel.Location = New System.Drawing.Point(117, 13)
+                btnUp.Location = New System.Drawing.Point(154, 0)
+                btnDown.Location = New System.Drawing.Point(154, 22)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
+                Label1.Font = New Font("MS UI Gothic", 14)
+                Label2.Font = New Font("MS UI Gothic", 14)
+                dayLabel.Font = New Font("MS UI Gothic", 14, FontStyle.Bold)
+                btnUp.Font = New Font("MS UI Gothic", 9)
+                btnDown.Font = New Font("MS UI Gothic", 9)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(48, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
+                'ボタンのサイズ
+                btnUp.Size = New Size(22, 23)
+                btnDown.Size = New Size(22, 23)
+            ElseIf Mode = 5 Then
+                '曜日なしverの小さいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                Me.Size = New Drawing.Size(95, 22)
+
+                yearBox.Location = New System.Drawing.Point(0, 2)
+                monthBox.Location = New System.Drawing.Point(35, 2)
+                dateBox.Location = New System.Drawing.Point(60, 2)
+                Label1.Location = New System.Drawing.Point(29, 6)
+                Label2.Location = New System.Drawing.Point(54, 6)
+                btnUp.Location = New System.Drawing.Point(83, 0)
+                btnDown.Location = New System.Drawing.Point(83, 11)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+                btnUp.Font = New Font("ＭＳ Ｐゴシック", 4)
+                btnDown.Font = New Font("ＭＳ Ｐゴシック", 4)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(30, 19)
+                monthBox.Size = New Size(20, 19)
+                dateBox.Size = New Size(20, 19)
+                'ボタンのサイズ
+                btnUp.Size = New Size(13, 12)
+                btnDown.Size = New Size(13, 12)
+            ElseIf Mode = 6 Then
+                '曜日なし、ボタンなしverの小さいver
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = False
+                btnUp.Visible = False
+                btnDown.Visible = False
+
+                Me.Size = New Drawing.Size(81, 22)
+
+                yearBox.Location = New System.Drawing.Point(0, 2)
+                monthBox.Location = New System.Drawing.Point(35, 2)
+                dateBox.Location = New System.Drawing.Point(60, 2)
+                Label1.Location = New System.Drawing.Point(29, 6)
+                Label2.Location = New System.Drawing.Point(54, 6)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(30, 19)
+                monthBox.Size = New Size(20, 19)
+                dateBox.Size = New Size(20, 19)
+            Else
+                'デフォルト
+                yearBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                dayLabel.Visible = True
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                '全体のサイズ
+                Me.Size = New Drawing.Size(155, 32)
+
+                '位置
+                yearBox.Location = New System.Drawing.Point(0, 6)
+                monthBox.Location = New System.Drawing.Point(50, 6)
+                dateBox.Location = New System.Drawing.Point(82, 6)
+                Label1.Location = New System.Drawing.Point(40, 9)
+                Label2.Location = New System.Drawing.Point(72, 9)
+                dayLabel.Location = New System.Drawing.Point(107, 9)
+                btnUp.Location = New System.Drawing.Point(139, 0)
+                btnDown.Location = New System.Drawing.Point(139, 16)
+
+                'フォント
+                yearBox.Font = New Font("MS UI Gothic", 11)
+                monthBox.Font = New Font("MS UI Gothic", 11)
+                dateBox.Font = New Font("MS UI Gothic", 11)
+                Label1.Font = New Font("MS UI Gothic", 12)
+                Label2.Font = New Font("MS UI Gothic", 12)
+                dayLabel.Font = New Font("MS UI Gothic", 12, FontStyle.Bold)
+                btnUp.Font = New Font("MS UI Gothic", 7)
+                btnDown.Font = New Font("MS UI Gothic", 7)
+
+                'テキストボックスのサイズ
+                yearBox.Size = New Size(39, 22)
+                monthBox.Size = New Size(22, 22)
+                dateBox.Size = New Size(22, 22)
+                'ボタンのサイズ
+                btnUp.Size = New Size(15, 17)
+                btnDown.Size = New Size(15, 17)
             End If
         End Set
     End Property
-
 
     Public Property yearText() As String
         Get
@@ -116,16 +422,13 @@ Public Class ADBox2
         monthBox.ContextMenu = New ContextMenu()
         dateBox.ContextMenu = New ContextMenu()
 
-        setADStr(DateTime.Now.ToString("yyyy/MM/dd"))
-
         Timer1.Interval = 500
         Timer2.Interval = 500
     End Sub
 
     Public Sub setADStr(adStr As String)
         clearText()
-        If adStr = "" Then
-            setADStr(AD_STR_MIN)
+        If adStr = "" OrElse Not System.Text.RegularExpressions.Regex.IsMatch(adStr, "^\d\d\d\d/\d\d/\d\d$") Then
             Return
         End If
         Dim adStrArray As String() = Split(adStr, "/")
@@ -155,6 +458,78 @@ Public Class ADBox2
         dateText = ""
     End Sub
 
+    ''' <summary>
+    ''' 対象文字を選択状態にする
+    ''' </summary>
+    ''' <param name="targetIndex">選択対象文字インデックス</param>
+    ''' <remarks></remarks>
+    Public Sub setFocus(targetIndex As Integer)
+        If yearText = "" Then
+            Return
+        End If
+
+        If targetIndex = 0 Then
+            '１文字目選択
+            yearBox.Focus()
+            yearBox.Select(0, 1)
+        ElseIf targetIndex = 1 Then
+            '２文字目選択
+            yearBox.Focus()
+            yearBox.Select(1, 1)
+        ElseIf targetIndex = 2 Then
+            '３文字目選択
+            yearBox.Focus()
+            yearBox.Select(2, 1)
+        ElseIf targetIndex = 3 Then
+            '４文字目選択
+            yearBox.Focus()
+            yearBox.Select(3, 1)
+        ElseIf targetIndex = 4 Then
+            '５文字目選択
+            monthBox.Focus()
+            monthBox.Select(0, 1)
+        ElseIf targetIndex = 5 Then
+            '６文字目選択
+            monthBox.Focus()
+            monthBox.Select(1, 1)
+        ElseIf targetIndex = 6 Then
+            '７文字目選択
+            dateBox.Focus()
+            dateBox.Select(0, 1)
+        ElseIf targetIndex = 7 Then
+            '８文字目選択
+            dateBox.Focus()
+            dateBox.Select(1, 1)
+        Else
+            Return
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 入力日付の曜日（日本語）を取得する
+    ''' </summary>
+    ''' <returns>曜日（日本語）</returns>
+    ''' <remarks></remarks>
+    Public Function getDay() As String
+        Dim day As String = ""
+
+        '入力値が空白の場合は空文字を返す
+        If yearText = "" OrElse monthText = "" OrElse dateText = "" Then
+            Return day
+        End If
+
+        Dim ymdStr As String = getADStr()
+        Dim yearNum As Integer = Integer.Parse(ymdStr.Substring(0, 4))
+        Dim monthNum As Integer = Integer.Parse(ymdStr.Substring(5, 2))
+        Dim dateNum As Integer = Integer.Parse(ymdStr.Substring(8, 2))
+        Dim dateTime As DateTime = New DateTime(yearNum, monthNum, dateNum)
+
+        '短縮表記の曜日を取得（例：月）
+        day = dateTime.ToString("ddd")
+
+        Return day
+    End Function
+
     Private Function getMonthDaysNum(ByVal yearStr As String, ByVal monthStr As String) As Integer
         Dim daysNum As Integer
         Dim yearStrNum As Integer = Integer.Parse(yearStr)
@@ -166,6 +541,22 @@ Public Class ADBox2
     Private Sub yearBox_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles yearBox.KeyDown
         If e.KeyCode = Keys.Enter Then
             RaiseEvent keyDownEnter(Me, New EventArgs)
+            Return
+        End If
+
+        '空白に入力する場合
+        If yearText = "" Then
+            If (Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D2) OrElse (Keys.NumPad1 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad2) Then
+                If e.KeyCode = Keys.D1 OrElse e.KeyCode = Keys.NumPad1 Then
+                    '入力値が1ならば最小値を設定
+                    setADStr(AD_STR_MIN)
+                ElseIf e.KeyCode = Keys.D2 OrElse e.KeyCode = Keys.NumPad2 Then
+                    '入力値が2ならば2000/01/01を設定
+                    setADStr(AD_STR_MIN_2)
+                End If
+                yearBox.Select(1, 1)
+            End If
+            e.SuppressKeyPress = True
             Return
         End If
 
@@ -335,21 +726,6 @@ Public Class ADBox2
         RaiseEvent YmdTextChange(Me, New EventArgs)
     End Sub
 
-    Private Sub yearBox_GotFocus(sender As Object, e As System.EventArgs) Handles yearBox.GotFocus
-        If focusControlFlg = False Then
-            yearBox.Select(0, 1)
-        End If
-        focusedTextBoxNum = 1
-    End Sub
-
-    Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
-        focusedTextBoxNum = 2
-    End Sub
-
-    Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
-        focusedTextBoxNum = 3
-    End Sub
-
     Private Sub dateBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles dateBox.KeyDown
 
         Dim selectedIndex As Integer = dateBox.SelectionStart
@@ -403,6 +779,21 @@ Public Class ADBox2
         End If
 
         RaiseEvent YmdTextChange(Me, New EventArgs)
+    End Sub
+
+    Private Sub yearBox_GotFocus(sender As Object, e As System.EventArgs) Handles yearBox.GotFocus
+        If focusControlFlg = False Then
+            yearBox.Select(0, 1)
+        End If
+        focusedTextBoxNum = 1
+    End Sub
+
+    Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
+        focusedTextBoxNum = 2
+    End Sub
+
+    Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
+        focusedTextBoxNum = 3
     End Sub
 
     Private Sub yearBox_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles yearBox.MouseClick
@@ -599,4 +990,9 @@ Public Class ADBox2
         Timer2.Interval = 100
         downText()
     End Sub
+
+    Private Sub textBox_TextChanged(sender As Object, e As System.EventArgs) Handles Me.YmdTextChange
+        dayLabel.Text = "(" & getDay() & ")"
+    End Sub
+
 End Class
