@@ -72,6 +72,12 @@
     <Compile Include="ADBox2.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CalendarForm.Designer.vb">
+      <DependentUpon>CalendarForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Class1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -92,6 +98,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ADBox2.resx">
       <DependentUpon>ADBox2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalendarForm.resx">
+      <DependentUpon>CalendarForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

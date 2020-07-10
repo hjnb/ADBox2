@@ -445,6 +445,9 @@ Public Class ADBox2
     End Sub
 
     Public Function getADStr() As String
+        If yearText = "" OrElse monthText = "" OrElse dateText = "" Then
+            Return ""
+        End If
         Return yearText & "/" & monthText & "/" & dateText
     End Function
 
@@ -995,4 +998,11 @@ Public Class ADBox2
         dayLabel.Text = "(" & getDay() & ")"
     End Sub
 
+    Private Sub textBox_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles yearBox.MouseDoubleClick, monthBox.MouseDoubleClick, dateBox.MouseDoubleClick
+        yearBox.Focus()
+        yearBox.Select(0, 0)
+        Dim calForm As CalendarForm = New CalendarForm(Me, getADStr())
+        calForm.StartPosition = FormStartPosition.CenterScreen
+        calForm.ShowDialog()
+    End Sub
 End Class
