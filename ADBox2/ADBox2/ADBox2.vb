@@ -19,17 +19,19 @@ Public Class ADBox2
 
     Public Event YmdTextChange(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event keyDownUp(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event keyDownEnterOrDown(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event keyDownDown(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event keyDownUp(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event keyDownLeft(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event keyDownDown(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event keyDownLeft(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event keyDownEnterLastBox(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
 
-    'Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
+
+    Private _textReadOnly As Boolean = False
 
     Private _mode As Integer
     Public Property Mode() As Integer
@@ -389,6 +391,24 @@ Public Class ADBox2
         End Set
     End Property
 
+    Public Property textReadOnly() As Boolean
+        Get
+            Return _textReadOnly
+        End Get
+        Set(ByVal value As Boolean)
+            _textReadOnly = value
+            If _textReadOnly Then
+                yearBox.ReadOnly = True
+                monthBox.ReadOnly = True
+                dateBox.ReadOnly = True
+            Else
+                yearBox.ReadOnly = False
+                monthBox.ReadOnly = False
+                dateBox.ReadOnly = False
+            End If
+        End Set
+    End Property
+
     Public Property yearText() As String
         Get
             Return yearBox.Text
@@ -542,13 +562,17 @@ Public Class ADBox2
     End Function
 
     Private Sub yearBox_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles yearBox.KeyDown
+        If textReadOnly Then
+            Return
+        End If
+
         If e.KeyCode = Keys.Enter Then
             RaiseEvent keyDownEnter(Me, New EventArgs)
             Return
         End If
 
         '空白に入力する場合
-        If yearText = "" Then
+        If yearText = "" AndAlso (Mode <> 5 AndAlso Mode <> 6) Then
             If (Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D2) OrElse (Keys.NumPad1 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad2) Then
                 If e.KeyCode = Keys.D1 OrElse e.KeyCode = Keys.NumPad1 Then
                     '入力値が1ならば最小値を設定
@@ -564,6 +588,58 @@ Public Class ADBox2
         End If
 
         Dim selectedIndex As Integer = yearBox.SelectionStart
+
+        'Mode=5の場合のみ
+        If Mode = 5 Then
+            If e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf (selectedIndex = 0 OrElse yearText = "") AndAlso e.KeyCode = Keys.Left Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownLeft(Me, New EventArgs)
+                Return
+            ElseIf yearText = "" AndAlso e.KeyCode = Keys.Right Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownRight(Me, New EventArgs)
+                Return
+            ElseIf yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                e.SuppressKeyPress = True
+                Return
+            ElseIf selectedIndex = 0 AndAlso yearText = "" Then
+                '現在日付をセット
+                setADStr(Today.ToString("yyyy/MM/dd"))
+                yearBox.Select(1, 1)
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
+        'Mode=6の場合のみ
+        If Mode = 6 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+            If selectedIndex = 0 AndAlso yearText = "" AndAlso e.KeyCode <> Keys.Enter Then
+                '現在日付をセット
+                setADStr(Today.ToString("yyyy/MM/dd"))
+                yearBox.Select(1, 1)
+                e.SuppressKeyPress = True
+                Return
+            End If
+            If yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
 
         If selectedIndex = 0 Then
             If e.KeyCode = Keys.Right Then
@@ -662,12 +738,49 @@ Public Class ADBox2
     End Sub
 
     Private Sub monthBox_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles monthBox.KeyDown
+        If textReadOnly Then
+            Return
+        End If
+
         If e.KeyCode = Keys.Enter Then
             RaiseEvent keyDownEnter(Me, New EventArgs)
             Return
         End If
 
         Dim selectedIndex As Integer = monthBox.SelectionStart
+
+        'Mode=5の場合のみ
+        If Mode = 5 Then
+            If e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                yearBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
+        'Mode=6の場合のみ
+        If Mode = 6 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+            If yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                yearBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
 
         If selectedIndex = 0 Then
             '1文字目(月の10の位)
@@ -730,8 +843,54 @@ Public Class ADBox2
     End Sub
 
     Private Sub dateBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles dateBox.KeyDown
+        If textReadOnly Then
+            Return
+        End If
+
+        If e.KeyCode = Keys.Enter Then
+            RaiseEvent keyDownEnter(Me, New EventArgs)
+            Return
+        End If
 
         Dim selectedIndex As Integer = dateBox.SelectionStart
+
+        'Mode=5の場合のみ
+        If Mode = 5 Then
+            If e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf selectedIndex = 1 AndAlso e.KeyCode = Keys.Right Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownRight(Me, New EventArgs)
+                Return
+            ElseIf yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                yearBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
+        'Mode=6の場合のみ
+        If Mode = 6 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+            If yearText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                yearBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(yearText, monthText)
 
@@ -789,14 +948,17 @@ Public Class ADBox2
             yearBox.Select(0, 1)
         End If
         focusedTextBoxNum = 1
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
         focusedTextBoxNum = 2
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
         focusedTextBoxNum = 3
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub yearBox_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles yearBox.MouseClick
@@ -999,6 +1161,9 @@ Public Class ADBox2
     End Sub
 
     Private Sub textBox_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles yearBox.MouseDoubleClick, monthBox.MouseDoubleClick, dateBox.MouseDoubleClick
+        If textReadOnly Then
+            Return
+        End If
         yearBox.Focus()
         yearBox.Select(0, 0)
         Dim calForm As CalendarForm = New CalendarForm(Me, getADStr())
