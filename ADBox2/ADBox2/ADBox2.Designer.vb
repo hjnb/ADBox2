@@ -38,7 +38,7 @@ Partial Class ADBox2
         'btnDown
         '
         Me.btnDown.Font = New System.Drawing.Font("MS UI Gothic", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnDown.Location = New System.Drawing.Point(139, 16)
+        Me.btnDown.Location = New System.Drawing.Point(144, 16)
         Me.btnDown.Name = "btnDown"
         Me.btnDown.Size = New System.Drawing.Size(15, 17)
         Me.btnDown.TabIndex = 9
@@ -48,7 +48,7 @@ Partial Class ADBox2
         'btnUp
         '
         Me.btnUp.Font = New System.Drawing.Font("MS UI Gothic", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnUp.Location = New System.Drawing.Point(139, 0)
+        Me.btnUp.Location = New System.Drawing.Point(144, 0)
         Me.btnUp.Name = "btnUp"
         Me.btnUp.Size = New System.Drawing.Size(15, 17)
         Me.btnUp.TabIndex = 8
@@ -134,7 +134,7 @@ Partial Class ADBox2
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label2)
         Me.Name = "ADBox2"
-        Me.Size = New System.Drawing.Size(155, 32)
+        Me.Size = New System.Drawing.Size(160, 32)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

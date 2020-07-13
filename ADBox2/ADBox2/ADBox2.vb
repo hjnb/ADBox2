@@ -248,7 +248,7 @@ Public Class ADBox2
                 btnDown.Visible = True
 
                 '全体のサイズ
-                Me.Size = New Drawing.Size(175, 45)
+                Me.Size = New Drawing.Size(181, 45)
 
                 '位置
                 yearBox.Location = New System.Drawing.Point(0, 9)
@@ -257,8 +257,8 @@ Public Class ADBox2
                 Label1.Location = New System.Drawing.Point(46, 14)
                 Label2.Location = New System.Drawing.Point(79, 14)
                 dayLabel.Location = New System.Drawing.Point(117, 13)
-                btnUp.Location = New System.Drawing.Point(154, 0)
-                btnDown.Location = New System.Drawing.Point(154, 22)
+                btnUp.Location = New System.Drawing.Point(160, 0)
+                btnDown.Location = New System.Drawing.Point(160, 22)
 
                 'フォント
                 yearBox.Font = New Font("MS UI Gothic", 14)
@@ -356,7 +356,7 @@ Public Class ADBox2
                 btnDown.Visible = True
 
                 '全体のサイズ
-                Me.Size = New Drawing.Size(155, 32)
+                Me.Size = New Drawing.Size(160, 32)
 
                 '位置
                 yearBox.Location = New System.Drawing.Point(0, 6)
@@ -365,8 +365,8 @@ Public Class ADBox2
                 Label1.Location = New System.Drawing.Point(40, 9)
                 Label2.Location = New System.Drawing.Point(72, 9)
                 dayLabel.Location = New System.Drawing.Point(107, 9)
-                btnUp.Location = New System.Drawing.Point(139, 0)
-                btnDown.Location = New System.Drawing.Point(139, 16)
+                btnUp.Location = New System.Drawing.Point(144, 0)
+                btnDown.Location = New System.Drawing.Point(144, 16)
 
                 'フォント
                 yearBox.Font = New Font("MS UI Gothic", 11)
