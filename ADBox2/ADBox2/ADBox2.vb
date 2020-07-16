@@ -827,12 +827,9 @@ Public Class ADBox2
                 If Integer.Parse(dateText) > daysNum Then
                     dateText = "" & daysNum
                 End If
-                If Mode = 1 Then
-                    monthBox.Select(1, 1)
-                Else
-                    dateBox.Focus()
-                    dateBox.Select(0, 1)
-                End If
+                
+                dateBox.Focus()
+                dateBox.Select(0, 1)
                 e.SuppressKeyPress = True
             Else
                 e.SuppressKeyPress = True
