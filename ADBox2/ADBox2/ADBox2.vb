@@ -1167,4 +1167,28 @@ Public Class ADBox2
         calForm.StartPosition = FormStartPosition.CenterScreen
         calForm.ShowDialog()
     End Sub
+
+    Public Function getPrevYm() As String
+        If yearText = "" OrElse monthText = "" Then
+            Return ""
+        End If
+
+        Dim yyyy As Integer = CInt(yearText)
+        Dim mm As Integer = CInt(monthText)
+        Dim dd As Integer = 1
+        Dim adDate As DateTime = New DateTime(yyyy, mm, dd)
+        Return adDate.AddMonths(-1).ToString("yyyy/MM")
+    End Function
+
+    Public Function getNextYm() As String
+        If yearText = "" OrElse monthText = "" Then
+            Return ""
+        End If
+        Dim yyyy As Integer = CInt(yearText)
+        Dim mm As Integer = CInt(monthText)
+        Dim dd As Integer = 1
+        Dim adDate As DateTime = New DateTime(yyyy, mm, dd)
+        Return adDate.AddMonths(1).ToString("yyyy/MM")
+    End Function
+
 End Class
